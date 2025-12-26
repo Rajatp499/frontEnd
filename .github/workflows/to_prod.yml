@@ -1,0 +1,35 @@
+name: 🚀 Deploy React App to Hostinger via FTP
+
+on:
+  push:
+    branches:
+      - main # or your branch
+
+jobs:
+  ftp-deploy:
+    name: Build and Deploy via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # or 20 if you want latest
+
+      - name: Install Dependencies
+        run: npm install  --legacy-peer-deps
+
+      - name: Build Project
+        run: npm run build --legacy-peer-deps
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: / # adjust if your domain is inside subfolder
+          local-dir: dist/ # IMPORTANT: only upload the build folder
