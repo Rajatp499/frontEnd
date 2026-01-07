@@ -17,38 +17,38 @@ const IntroductionPage = () => {
       title: "Economic Empowerment",
       description: "Enhance financial security and income generation for all cooperative members through collective action and fair trade practices.",
       icon: HandCoins,
-      color: "from-red-500 to-red-600"
+      // color: "from-red-500 to-red-600"
     
     },
     {
       title: "Quality Production",
       description: "Maintain highest standards in organic egg production with modern farming techniques and sustainable practices.",
       icon: Egg,
-      color: "from-yellow-500 to-yellow-600"
+      // color: "from-yellow-500 to-yellow-600"
     },
     {
       title: "Member Education",
       description: "Provide continuous training and education on best farming practices, financial literacy, and cooperative management.",
       icon: Users,
-       color: "from-orange-500 to-orange-600"
+      //  color: "from-orange-500 to-orange-600"
     },
     {
       title: "Community Development",
       description: "Support local community growth through infrastructure development, social programs, and welfare initiatives.",
       icon: Building,
-      color: "from-blue-500 to-blue-600"
+      // color: "from-blue-500 to-blue-600"
     },
     {
       title: "Sustainable Practices",
       description: "Promote environmentally friendly farming methods and contribute to ecological conservation and sustainability.",
       icon: Sprout,
-      color: "from-green-500 to-green-600"
+      // color: "from-green-500 to-green-600"
     },
     {
       title: "Market Access",
       description: "Create reliable market channels and ensure fair prices for member products through cooperative marketing efforts.",
       icon: ShoppingCart,
-      color: "from-purple-500 to-purple-600"
+      // color: "from-purple-500 to-purple-600"
     }
   ]
 

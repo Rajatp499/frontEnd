@@ -12,49 +12,49 @@ const SalesDistributionPage = () => {
       icon: ShoppingCart,
       title: "Daily Sales Entry",
       description: "Sellers can quickly record daily sales with intuitive mobile interface from any location.",
-      color: "from-green-500 to-green-600"
+      // color: "from-green-500 to-green-600"
     },
     {
       icon: MapPin,
       title: "Location Tracking",
       description: "Track sales by specific outlets and locations for better distribution insights and planning.",
-      color: "from-blue-500 to-blue-600"
+      // color: "from-blue-500 to-blue-600"
     },
     {
       icon: Package,
       title: "Stock Management",
       description: "Monitor stock levels in real-time, track remaining inventory, and prevent stockouts automatically.",
-      color: "from-purple-500 to-purple-600"
+      // color: "from-purple-500 to-purple-600"
     },
     {
       icon: Calculator,
       title: "Auto Revenue Calculation",
       description: "System automatically calculates daily revenue based on quantities sold and current rates.",
-      color: "from-orange-500 to-orange-600"
+      // color: "from-orange-500 to-orange-600"
     },
     {
       icon: DollarSign,
       title: "Dynamic Pricing",
       description: "Update egg prices in real-time and apply changes across all sales channels instantly.",
-      color: "from-yellow-500 to-yellow-600"
+      // color: "from-yellow-500 to-yellow-600"
     },
     {
       icon: TrendingUp,
       title: "Performance Analytics",
       description: "Track top-selling locations, best performers, and identify sales trends over time.",
-      color: "from-red-500 to-red-600"
+      // color: "from-red-500 to-red-600"
     },
     {
       icon: Users,
       title: "Commission Management",
       description: "Automatically calculate seller commissions based on configurable rates and performance.",
-      color: "from-indigo-500 to-indigo-600"
+      // color: "from-indigo-500 to-indigo-600"
     },
     {
       icon: AlertCircle,
       title: "Smart Alerts",
       description: "Receive notifications for low stock, daily submission reminders, and important updates.",
-      color: "from-pink-500 to-pink-600"
+      // color: "from-pink-500 to-pink-600"
     }
   ];
 
@@ -117,7 +117,7 @@ const SalesDistributionPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => {
               return (
-                <FeatureTextCard index={index} icon={feature.icon} title={feature.title} text={feature.description} color={feature.color} />
+                <FeatureTextCard index={index} icon={feature.icon} title={feature.title} text={feature.description} />
               );
             })}
           </div>

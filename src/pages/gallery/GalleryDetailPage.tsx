@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams,Link } from 'react-router-dom';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+// import { DotsLoading } from '../../components/ui/Loading';
 
 interface Album {
     id: number;
@@ -14,7 +15,7 @@ interface Album {
 
 
 const GalleryDetailPage = () => {
-
+    // const [isLoading, setIsLoading] = useState<boolean>(false)
     const { slug } = useParams<{ slug: string }>();
 
     const albums: Album[] = [
@@ -143,6 +144,10 @@ const GalleryDetailPage = () => {
         }
     };
 
+    // if(isLoading){
+    //     return <DotsLoading />
+    // }
+
     if(!album){
         return(
             <>
@@ -163,7 +168,7 @@ const GalleryDetailPage = () => {
                 {/* Back Button */}
                 <Link
                 to='/gallery'
-                    className="mb-8 flex items-center gap-2 text-gray-700 hover:text-orange-600 font-semibold transition-colors group"
+                    className="mb-8 flex items-center gap-2 text-gray-700 hover:text-primaryDark font-semibold transition-colors group"
                 >
                     <FaChevronLeft className="group-hover:-translate-x-1 transition-transform" />
                     Back to Albums

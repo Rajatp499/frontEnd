@@ -1,33 +1,36 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-// import { account } from "../lib/appwrite";
-// import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import { useDispatch } from "react-redux";
-// import { addUser } from "../Slices/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axiosInstance from "../../axios/axiosInstance";
+import { setUser } from '../../store/slices/userSlice'
+
+import { useAppDispatch } from "../../hooks/hooks";
 
 export default function LoginPage() {
-  const [email, setEmail] =useState('')
-  const [password, setPassword] =useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch()
 
 
-    const login =async()=>{
-    //   try{
-    //     const session = await account.createEmailPasswordSession(email,password)
-    //     console.log(session)
-    //     navigate('/')
-    //     // window.location.reload()
-    //     toast('Logged IN')
-    //   }   
-    //   catch(err){
-    //     // console.log(err)
-    //     toast('Invalid credentials')
-    //   }   
+  const login = async () => {
+    try {
+      const response = await axiosInstance.post('/api/login', {
+        email, password
+      });
+      // console.log(response)
+      localStorage.setItem('authToken', response.data.token)
+      dispatch(setUser(response.data.user))
+      navigate('/')
+      toast.success('Login sucessfull')
 
-    
+    } catch (err: any) {
+      console.log(err.response.data.message)
+      toast.error(err.response.data.message)
+
+
+    }
   }
 
 
@@ -43,7 +46,7 @@ export default function LoginPage() {
           <input
             type="text"
             value={email}
-            onChange={(e)=> setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="Enter your email"
           />
@@ -55,7 +58,7 @@ export default function LoginPage() {
           <input
             type="password"
             value={password}
-            onChange={(e)=> setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="Enter your password"
           />
@@ -63,19 +66,19 @@ export default function LoginPage() {
 
         {/* Login Button */}
         <button className="w-full bg-primary text-white py-3 rounded-lg hover:bg-primaryDark transition"
-        onClick={()=> login()}>
+          onClick={() => login()}>
           Login
         </button>
 
         {/* Signup Link */}
 
-                <p className="text-center mt-5 text-secHeader">
+        <p className="text-center mt-5 text-secHeader">
           Don't have an account?{" "}
           <Link to="/login" className="text-primaryDark hover:underline">
             Sign up
           </Link>
         </p>
-            <p className="text-center mt-2 text-secHeader">
+        <p className="text-center mt-2 text-secHeader">
           Back to {" "}
           <Link to="/" className="text-primaryDark hover:underline">
             Home

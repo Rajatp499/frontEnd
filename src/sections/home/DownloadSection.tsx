@@ -1,4 +1,5 @@
 //images
+import { motion } from 'framer-motion'
 import mobile from '../../assets/download.png'
 
 //icons
@@ -11,7 +12,13 @@ const Download = () => {
   <div className='mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-65'>
     <div className='flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-4 items-center'>
       {/* Left Side - Mobile Image */}
-      <div className='w-full lg:w-1/2 flex justify-center lg:justify-start'>
+      <motion.div 
+        className='w-full lg:w-1/2 flex justify-center lg:justify-start'
+        initial={{ opacity: 0,  }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <div className='relative w-64 sm:w-80 md:w-96 lg:w-full max-w-md'>
           <img 
             src={mobile} 
@@ -19,10 +26,16 @@ const Download = () => {
             className="w-full h-full object-contain transition-transform duration-500 hover:scale-105 drop-shadow-2xl" 
           />
         </div>
-      </div>
+      </motion.div>
 
       {/* Right Side - Content */}
-      <div className='w-full lg:w-1/2 p-4 sm:p-6 md:p-8 text-center lg:text-left'>
+      <motion.div 
+        className='w-full lg:w-1/2 p-4 sm:p-6 md:p-8 text-center lg:text-left'
+        initial={{ opacity: 0,  }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         {/* Main Heading */}
         <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-Black mb-6 sm:mb-8 md:mb-10 leading-tight'>
           Manage your Digital Payments{' '}
@@ -51,7 +64,7 @@ const Download = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   </div>
 </div>

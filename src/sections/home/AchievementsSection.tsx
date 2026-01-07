@@ -39,6 +39,7 @@ const Achievements = () => {
                         {cards.map((card, index) => (
                             <Card 
                                 key={index}
+                                index={index}
                                 icon={card.icon}
                                 text={card.text}  // Pass text to card
                                 isActive={activeIndex === index}  // Highlight active card

@@ -1,8 +1,8 @@
 @import "tailwindcss";
-/* ::selection {
-  background: #990000;
-  color: #000; 
-} */
+/* swiper */
+ @import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
 
 @theme{
   --default-font-family: 'poppins', sans-serif;
@@ -11,6 +11,7 @@
   --color-primaryDark: #D0855A;
   --color-background: #F5F5F5;
   --color-secHeader: #718096;
+  --color-darkBlue: 	#010057;
 
   --color-White: #FFFFFF; 
   --color-Black: #000000;         

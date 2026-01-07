@@ -1,4 +1,5 @@
 import  { useRef } from 'react';
+import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 //Components
 import { WordsCard as Card } from '../../components/ui/card'
@@ -46,12 +47,24 @@ const MembersWords = () => {
             <div className='mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-65'>
                 {/* Header with Navigation */}
                 <div className='flex items-center justify-between mb-6 sm:mb-8 md:mb-10'>
-                    <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold'>
+                    <motion.div 
+                        className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold'
+                        initial={{ opacity: 0, x: -100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         <span className='text-primaryDark'>Members</span> Word's
-                    </div>
+                    </motion.div>
 
                     {/* Navigation Arrows - Desktop only */}
-                    <div className='hidden md:flex gap-2'>
+                    <motion.div 
+                        className='hidden md:flex gap-2'
+                        initial={{ opacity: 0, x: 100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         <button 
                             onClick={() => scroll('left')}
                             className='p-2 lg:p-3 bg-white hover:bg-primary hover:text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300'
@@ -66,11 +79,17 @@ const MembersWords = () => {
                         >
                             <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
                         </button>
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Scrollable Cards Container */}
-                <div className='relative'>
+                <motion.div 
+                    className='relative'
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                >
                     {/* Gradient Fade on Right */}
                     <div className='absolute right-0 top-0 bottom-0 w-16 sm:w-24 lg:w-32 bg-gradient-to-l from-background via-background/50 to-transparent z-10 pointer-events-none hidden sm:block'></div>
                     
@@ -107,7 +126,7 @@ const MembersWords = () => {
                             ></div>
                         ))}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     )

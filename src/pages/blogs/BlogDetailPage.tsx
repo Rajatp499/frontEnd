@@ -1,4 +1,4 @@
-// pages/BlogDetailPage.tsx
+// import {useState} from 'react'
 import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
@@ -14,6 +14,7 @@ import blog6 from '../../assets/news.jpg';
 
 // import blog3 from '../assets/blog3.png';
 import pp from '../../assets/pp.jpeg'
+// import { DotsLoading } from '../../components/ui/Loading';
 
 interface BlogProps {
     id: string;
@@ -31,6 +32,7 @@ interface BlogProps {
 
 const BlogDetailPage = () => {
     const { slug } = useParams<{ slug: string }>();
+    // const [isLoading, setIsLoading] =useState<boolean>(false)
 
     // In real app, fetch blog by slug from API
     const blogsData: BlogProps[] = [
@@ -153,6 +155,8 @@ const BlogDetailPage = () => {
 
     // Related blogs (exclude current)
     const relatedBlogs = blogsData.filter(b => b.id !== blog.id).slice(0, 3);
+    // if (isLoading)
+    //     return <DotsLoading />
 
     return (
         <div className="bg-background">
@@ -248,8 +252,8 @@ const BlogDetailPage = () => {
                         <span className="text-primaryDark">Related</span> Articles
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {relatedBlogs.map((relatedBlog) => (
-                            <ArticleCard key={relatedBlog.id} page='blogs' {...relatedBlog} animated />
+                        {relatedBlogs.map((relatedBlog, index) => (
+                            <ArticleCard key={relatedBlog.id} page='blogs' index={index} {...relatedBlog} animated />
                         ))}
                     </div>
                 </div>

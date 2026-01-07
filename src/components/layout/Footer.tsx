@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import logo from '../../assets/egg_logo.png';
@@ -18,7 +19,13 @@ const Footer = () => {
                 <div className='flex flex-col lg:flex-row gap-8 lg:gap-12 mb-8'>
 
                     {/* Column 1 - Logo & Contact Info */}
-                    <div className='flex-1'>
+                    <motion.div 
+                        className='flex-1'
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                    >
                         {/* Logo */}
                         <div className='flex items-center gap-3 mb-6'>
                             <img
@@ -66,10 +73,16 @@ const Footer = () => {
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Column 2 - Quick Links */}
-                    <div className='flex-1'>
+                    <motion.div 
+                        className='flex-1'
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+                    >
                         <h3 className='text-xl sm:text-2xl font-bold mb-6'>Quick Links</h3>
                         <nav className='flex flex-col gap-3'>
                             <Link
@@ -109,10 +122,16 @@ const Footer = () => {
                                 Events
                             </Link>
                         </nav>
-                    </div>
+                    </motion.div>
 
                     {/* Column 3 - Newsletter */}
-                    <div className='flex-1'>
+                    <motion.div 
+                        className='flex-1'
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+                    >
                         <h3 className='text-xl sm:text-2xl font-bold mb-6'>Newsletter</h3>
                         <p className='text-sm sm:text-base text-orange-50 mb-6 leading-relaxed'>
                             Subscribe to our newsletter for the latest updates and news from Best Egg COOP.
@@ -136,11 +155,17 @@ const Footer = () => {
                         <p className='text-xs text-orange-100 mt-4'>
                             We respect your privacy. Unsubscribe at any time.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Bottom Footer */}
-                <div className='pt-8 border-t border-White/30'>
+                <motion.div 
+                    className='pt-8 border-t border-White/30'
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+                >
                     <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
                         {/* Copyright */}
                         <p className='text-sm text-White/80 text-center sm:text-left'>
@@ -178,7 +203,7 @@ const Footer = () => {
                             </a>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </footer>
     );

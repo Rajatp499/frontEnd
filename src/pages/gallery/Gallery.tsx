@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaImages } from 'react-icons/fa';
 import HeroSection from '../../components/layout/HeroSection';
+// import { DotsLoading } from '../../components/ui/Loading';
+import { motion } from 'framer-motion'
 
 interface Album {
     id: number;
@@ -14,6 +16,7 @@ interface Album {
 }
 
 const Gallery: React.FC = () => {
+    // const [isLoading, setIsLoading] =useState<boolean>(false)
     const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -25,7 +28,7 @@ const Gallery: React.FC = () => {
             title: "Farm Operations",
             cover: "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&h=600&fit=crop",
             imageCount: 12,
-            slug:'farm-operations',
+            slug: 'farm-operations',
             description: 'Wonderful time at Bhotepul farm in dharan.',
             images: [
                 "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=2000&h=800&fit=crop",
@@ -58,7 +61,7 @@ const Gallery: React.FC = () => {
             title: "Team & Events",
             cover: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop",
             imageCount: 15,
-            slug:'team-and-events',
+            slug: 'team-and-events',
             images: [
                 "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop",
                 "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1200&h=800&fit=crop",
@@ -82,7 +85,7 @@ const Gallery: React.FC = () => {
             title: "Products",
             cover: "https://images.unsplash.com/photo-1582044131921-a1e4c1c5d3f4?w=800&h=600&fit=crop",
             imageCount: 8,
-            slug:'products',
+            slug: 'products',
             images: [
                 "https://images.unsplash.com/photo-1582044131921-a1e4c1c5d3f4?w=1200&h=800&fit=crop",
                 "https://images.unsplash.com/photo-1587049352846-4a222e784320?w=1200&h=800&fit=crop",
@@ -99,7 +102,7 @@ const Gallery: React.FC = () => {
             title: "Facilities",
             cover: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=600&fit=crop",
             imageCount: 10,
-            slug:'facilities',
+            slug: 'facilities',
             images: [
                 "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&h=800&fit=crop",
                 "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200&h=800&fit=crop",
@@ -152,19 +155,26 @@ const Gallery: React.FC = () => {
     }, [selectedImage, currentImageIndex]);
 
 
-        return (<>
-            {/* Hero Section */}
-            <HeroSection heading='Photo Gallery' subHeading='Explore our collection of moments and memories' />
+    return (<>
+        {/* Hero Section */}
+        <HeroSection heading='Photo Gallery' subHeading='Explore our collection of moments and memories' />
+        {/* {
+                (!isLoading) ? */}
+        <div className="min-h-screen bg-background py-12 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-32">
 
-            <div className="min-h-screen bg-background py-12 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-32">
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {albums.map((album) => (
-                        <Link
-                        to={`${album.slug}`}
-                            key={album.id}
-                            onClick={() => openAlbum(album)}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {albums.map((album) => (
+                    <motion.div
+                        key={album.id}
                             className="group relative bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: album.id * 0.1 }}
+                    >
+                        <Link
+                            to={`${album.slug}`}
+                            onClick={() => openAlbum(album)}
                         >
                             <div className="aspect-4/3 overflow-hidden">
                                 <img
@@ -182,10 +192,14 @@ const Gallery: React.FC = () => {
                                 </div>
                             </div>
                         </Link>
-                    ))}
-                </div>
+                    </motion.div>
+                ))}
             </div>
-        </>);
+        </div>
+        {/* :
+            <DotsLoading />
+                } */}
+    </>);
 };
 
 export default Gallery;

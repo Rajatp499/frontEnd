@@ -1,4 +1,5 @@
 // Images
+import { motion } from 'framer-motion'
 import news1 from '../../assets/news.jpg';
 import news2 from '../../assets/news2.jpg';
 import news3 from '../../assets/news3.jpg';
@@ -14,7 +15,12 @@ const StorySection = () => {
         <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-65">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16">
             {/* Text Content */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                 <span className="text-primaryDark">Our</span> Story
               </h2>
@@ -36,10 +42,16 @@ const StorySection = () => {
                   and fair trade practices.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Image */}
-            <div className="relative">
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
                   src={news1} 
@@ -53,11 +65,17 @@ const StorySection = () => {
                 <p className="text-primary font-bold text-3xl mb-1">2069</p>
                 <p className="text-gray-600 text-sm">Year Established</p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Additional Images Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
             <div className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
               <img src={news2} alt="Our Facilities" className="w-full h-64 object-cover" />
             </div>
@@ -70,7 +88,7 @@ const StorySection = () => {
           <div className='flex items-center justify-center lg:justify-start'>
           <ButtonFill content='View Gallery' />
           </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

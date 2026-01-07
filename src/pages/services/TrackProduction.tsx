@@ -12,37 +12,37 @@ const TrackProductionPage = () => {
       icon: Calendar,
       title: "Daily Production Entry",
       description: "Producers can easily record daily egg production with simple mobile or web interface.",
-      color: "from-blue-500 to-blue-600"
+      // color: "from-blue-500 to-blue-600"
     },
     {
       icon: Database,
       title: "Batch Tracking",
       description: "Track production batches, monitor performance, and identify trends across different batches.",
-      color: "from-green-500 to-green-600"
+      // color: "from-green-500 to-green-600"
     },
     {
       icon: TrendingUp,
       title: "Real-time Monitoring",
       description: "View live production statistics, track daily targets, and monitor overall performance.",
-      color: "from-purple-500 to-purple-600"
+      // color: "from-purple-500 to-purple-600"
     },
     {
       icon: AlertCircle,
       title: "Mortality Tracking",
       description: "Record and monitor poultry mortality rates to maintain health standards and quality control.",
-      color: "from-red-500 to-red-600"
+      // color: "from-red-500 to-red-600"
     },
     {
       icon: BarChart3,
       title: "Feed Usage Record",
       description: "Track feed consumption patterns to optimize costs and improve production efficiency.",
-      color: "from-yellow-500 to-yellow-600"
+      // color: "from-yellow-500 to-yellow-600"
     },
     {
       icon: Bell,
       title: "Smart Notifications",
       description: "Receive alerts for production anomalies, daily submission reminders, and important updates.",
-      color: "from-orange-500 to-orange-600"
+      // color: "from-orange-500 to-orange-600"
     }
   ];
 
@@ -85,7 +85,7 @@ const TrackProductionPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => {
               return (
-                <FeatureTextCard index={index} icon={feature.icon} title={feature.title} text={feature.description} color={feature.color} />
+                <FeatureTextCard index={index} icon={feature.icon} title={feature.title} text={feature.description} />
               );
             })}
           </div>

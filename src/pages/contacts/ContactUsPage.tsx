@@ -70,7 +70,7 @@ const ContactUs = () => {
     };
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-orange-50 to-orange-100">
+        <div className="min-h-screen bg-background">
             {/* Hero Section */}
             <HeroSection heading='Get In Touch' subHeading={`We'd love to hear from you. Send us a message and we'll respond as soon as possible.`} />
 
@@ -79,9 +79,9 @@ const ContactUs = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                     {/* Contact Information Cards */}
                     {contacts.map((c)=>
-                    <>
-                    <FeatureTextCard icon={c.icon} title={c.title} text={c.text} index={c.id} color='from-primary to-primaryDark' />
-                    </>
+                    <div key={c.id}>
+                    <FeatureTextCard icon={c.icon} title={c.title} text={c.text} index={c.id} />
+                    </div>
                     )}
                 
                 </div>

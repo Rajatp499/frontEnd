@@ -152,7 +152,7 @@ const NewsDetailPage = () => {
     }
 
     // Related blogs (exclude current)
-    const relatedBlogs = newsData.filter(n => n.id !== news.id).slice(0, 3);
+    const relatedNews = newsData.filter(n => n.id !== news.id).slice(0, 3);
 
     return (
         <div className="bg-background">
@@ -248,8 +248,8 @@ const NewsDetailPage = () => {
                         <span className="text-primaryDark">Related</span> Articles
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {relatedBlogs.map((relatedBlog) => (
-                            <ArticleCard key={relatedBlog.id} page='news' {...relatedBlog} animated />
+                        {relatedNews.map((news,index) => (
+                            <ArticleCard key={news.id} page='news' index={index} {...news} animated />
                         ))}
                     </div>
                 </div>

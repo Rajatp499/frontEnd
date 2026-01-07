@@ -1,5 +1,6 @@
 // components/sections/NewsHighlights.tsx
 import { useState } from 'react';
+import { motion } from 'framer-motion'
 
 // Import your images
 import news1 from '../../assets/news.jpg';
@@ -7,61 +8,128 @@ import news2 from '../../assets/news2.jpg';
 import news3 from '../../assets/news.jpg';
 import news4 from '../../assets/news.jpg';
 import news5 from '../../assets/news2.jpg';
+import pp from '../../assets/pp.jpeg'
+import { Link } from 'react-router-dom';
 
-interface NewsItem {
-  id: number;
-  title: string;
+interface NewsProps {
+  id: string;
+  slug: string;
   image: string;
-  date: string;
+  title: string;
   description: string;
-  link: string;
+  content?: string;
+  author: string;
+  authorBio?: string;
+  authorImage?: string;
+  date: string;
+  category: string;
 }
 
 const NewsHighlights = () => {
-  const newsData: NewsItem[] = [
+
+   const news: NewsProps[] = [
     {
-      id: 1,
-      title: "RCEF COOP CARD LAUNCHING PROGRAM AT LA UNION",
+      id: '1',
+      slug: 'benefits-of-organic-eggs',
       image: news1,
-      date: "November 20, 2024",
-      description: "Best Egg COOP successfully launched the RCEF COOP Card program in La Union, marking a significant milestone in our commitment to supporting local farmers and cooperative members. This innovative program aims to streamline agricultural support and provide better access to resources for our farming community.",
-      link: "#"
+      title: 'The Health Benefits of Organic Eggs',
+      description: 'Discover why organic eggs are becoming the preferred choice for health-conscious consumers.',
+      content: `
+        <h2>Why Choose Organic Eggs?</h2>
+        <p>Organic eggs have become increasingly popular among health-conscious consumers, and for good reason. These eggs come from hens that are raised according to strict organic farming standards, which means they have access to outdoor spaces, are fed organic feed, and are not treated with antibiotics or hormones.</p>
+
+        <h2>Nutritional Advantages</h2>
+        <p>Research shows that organic eggs contain significantly higher levels of omega-3 fatty acids compared to conventional eggs. They also have more vitamins A, E, and D. The improved nutritional profile is a direct result of the hens' diet and living conditions.</p>
+
+        <h3>Key Nutritional Benefits:</h3>
+        <ul>
+          <li>25% more omega-3 fatty acids</li>
+          <li>Higher levels of vitamin E</li>
+          <li>Better ratio of omega-3 to omega-6 fatty acids</li>
+          <li>Rich in antioxidants like lutein and zeaxanthin</li>
+        </ul>
+
+        <h2>Better Taste and Quality</h2>
+        <p>Many consumers report that organic eggs have a richer, more vibrant yolk color and better taste. This is attributed to the varied diet of organic hens, which includes grass, insects, and organic grains.</p>
+
+        <h2>Environmental Impact</h2>
+        <p>Choosing organic eggs also means supporting sustainable farming practices. Organic farms typically have better waste management systems, use renewable energy, and contribute less to environmental pollution.</p>
+
+        <h2>Best Egg COOP's Commitment</h2>
+        <p>At Best Egg COOP, we are proud to maintain organic certification for all our products. Our member farmers follow strict organic guidelines to ensure you receive the highest quality eggs while supporting sustainable agriculture.</p>
+
+        <h2>How to Identify Quality Organic Eggs</h2>
+        <p>When shopping for organic eggs, look for:</p>
+        <ul>
+          <li>Certified organic labels</li>
+          <li>Information about the farm or producer</li>
+          <li>Bright, firm yolks</li>
+          <li>Clean, intact shells</li>
+          <li>Fresh date stamps</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Organic eggs offer superior nutrition, better taste, and peace of mind knowing you're supporting ethical and sustainable farming practices. Whether you're looking to improve your diet or make more environmentally conscious choices, organic eggs are an excellent option.</p>
+      `,
+      author: 'Dr. Sarah Johnson',
+      authorBio: 'Dr. Sarah Johnson is a nutritionist with over 15 years of experience in sustainable agriculture and organic food systems.',
+      authorImage: pp,
+      date: 'December 15, 2024',
+      category: 'Health & Nutrition',
     },
     {
-      id: 2,
-      title: "Annual Cooperative Summit 2024",
+      id: '2',
+      slug: 'sustainable-egg-farming',
       image: news2,
-      date: "December 5, 2024",
-      description: "Join us for our biggest event of the year where cooperative members, industry leaders, and agricultural experts come together to discuss the future of sustainable farming.",
-      link: "#"
+      title: 'Sustainable Practices in Modern Egg Farming',
+      description: 'Explore how Best Egg COOP implements sustainable farming practices to protect the environment while maintaining high production standards. From renewable energy to waste management, discover our commitment to eco-friendly operations and how we contribute to environmental conservation while producing quality eggs.',
+      author: 'Rajesh Kumar',
+      date: 'December 10, 2024',
+      category: 'Sustainability',
     },
     {
-      id: 3,
-      title: "New Organic Certification Achievement",
+      id: '3',
+      slug: 'cooperative-success-story',
       image: news3,
-      date: "December 10, 2024",
-      description: "Best Egg COOP has achieved full organic certification, ensuring the highest quality standards for all our products and demonstrating our commitment to sustainable practices.",
-      link: "#"
+      title: 'How Our Cooperative Changed Lives',
+      description: 'Read inspiring stories from our member families who have transformed their livelihoods through cooperative membership. Learn how collective action, fair pricing, and community support have created economic opportunities and improved living standards for hundreds of families in our region.',
+      author: 'Sunita Sharma',
+      date: 'December 5, 2024',
+      category: 'Success Stories',
     },
     {
-      id: 4,
-      title: "Community Outreach Program Success",
+      id: '4',
+      slug: 'egg-quality-standards',
       image: news4,
-      date: "December 12, 2024",
-      description: "Our recent community outreach initiative reached over 500 families, providing education on sustainable farming practices and cooperative membership benefits.",
-      link: "#"
+      title: 'Understanding Egg Quality and Grading',
+      description: 'Learn about the comprehensive quality control measures that ensure every egg meets our high standards. From collection to packaging, understand the grading process, freshness indicators, and how we maintain consistent quality across all our products to deliver the best to our customers.',
+      author: 'Anil Thapa',
+      date: 'November 28, 2024',
+      category: 'Quality Control',
     },
     {
-      id: 5,
-      title: "Award for Excellence in Cooperative Management",
+      id: '5',
+      slug: 'poultry-nutrition-guide',
       image: news5,
-      date: "December 15, 2024",
-      description: "Best Egg COOP receives national recognition for outstanding cooperative management and community impact in the agricultural sector.",
-      link: "#"
+      title: 'Complete Guide to Poultry Nutrition',
+      description: 'A comprehensive guide for producers on optimal poultry nutrition to maximize egg production and bird health. Learn about feed composition, nutritional requirements at different life stages, and how proper nutrition directly impacts egg quality, production rates, and overall flock health.',
+      author: 'Dr. Priya Rai',
+      date: 'November 20, 2024',
+      category: 'Farming Tips',
+    },
+    {
+      id: '6',
+      slug: 'digital-transformation',
+      image: news5,
+      title: 'Digital Transformation in Agriculture',
+      description: 'Discover how technology is revolutionizing the cooperative egg industry. From mobile apps for daily production tracking to real-time analytics and automated reporting, learn how digital tools are making farming more efficient, transparent, and profitable for our cooperative members.',
+      author: 'Ramesh Gurung',
+      date: 'November 15, 2024',
+      category: 'Technology'
     }
   ];
 
-  const [selectedNews, setSelectedNews] = useState<NewsItem>(newsData[0]);
+  const [selectedNews, setSelectedNews] = useState<NewsProps>(news[0]);
 
   return (
     <div className="bg-background py-12 sm:py-16 md:py-20">
@@ -80,7 +148,13 @@ const NewsHighlights = () => {
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4">
           {/* Left Side - Main Featured Card */}
-          <div className="lg:col-span-2">
+          <motion.div 
+            className="lg:col-span-2"
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             {/* <NewsMainCard
               title={selectedNews.title}
               image={selectedNews.image}
@@ -120,8 +194,9 @@ const NewsHighlights = () => {
         </p>
 
         {/* See More Button */}
-        <a 
-          href={selectedNews.link}
+        <Link
+          // href={selectedNews.link}
+          to={`/news/${selectedNews.slug}`}
           className="group inline-flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-primary to-primaryDark text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:gap-3 w-fit text-sm"
         >
           <span>See Full Story</span>
@@ -133,14 +208,20 @@ const NewsHighlights = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </a>
+        </Link>
       </div>
     </div>
-          </div>
+          </motion.div>
 
           {/* Right Side - List of Small Cards */}
-          <div className="lg:col-span-1 space-y-4 md:space-y-3">
-            {newsData.slice(0, 4).map((news) => {
+          <motion.div 
+            className="lg:col-span-1 space-y-4 md:space-y-3"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {news.slice(0, 4).map((news) => {
               let isActive = selectedNews.id === news.id;
               return(
 
@@ -179,7 +260,7 @@ const NewsHighlights = () => {
                 </div>
               </div>
             )})}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

@@ -1,11 +1,18 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineMenu as Menu } from "react-icons/md";
 import { RxCross2 as X } from "react-icons/rx";
 import { IoChevronDown } from "react-icons/io5";
 
+import LOGO from '../../assets/egg_logo.png'
+
 //components
 import { ButtonFill } from '../ui/button';
+import { useAppSelector } from '../../hooks/hooks';
+import axiosInstance from '../../axios/axiosInstance';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from '../../hooks/hooks';
+import { removeUser } from '../../store/slices/userSlice';
 
 interface NavLinkProps {
   to: string;
@@ -23,6 +30,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.user)
+  console.log(user)
 
   const navLinks: NavBarProps[] = [
     { to: '/', label: 'Home' },
@@ -50,11 +60,11 @@ const Navbar = () => {
     { to: '/blogs', label: 'Blogs' },
     { to: '/news', label: 'News' },
     { to: '/gallery', label: 'Gallery' },
-    { to: '/contact', label: 'Contact us' },
+    { to: '/contact', label: 'Contacts' },
   ];
-
+  const navigate = useNavigate();
   const toggleSidebar = () => setIsOpen(!isOpen);
-  
+
   const closeSidebar = () => {
     setIsOpen(false);
     setActiveMobileDropdown(null);
@@ -63,67 +73,92 @@ const Navbar = () => {
   const toggleMobileDropdown = (label: string) => {
     setActiveMobileDropdown(activeMobileDropdown === label ? null : label);
   };
+  //LOGOUT function
+  const logOut=async ()=>{
+    try{
+      const response = await axiosInstance.post('/api/logout');
+      console.log(response)
+      localStorage.removeItem('authToken');
+      dispatch(removeUser())
+      
+    }catch(err){
+      toast('error logging out')
+    }
 
+  }
   return (
     <>
       <nav className={`w-full h-16 md:h-20 shadow-sm sticky top-0 z-50 ${isOpen ? 'bg-black/10' : 'bg-White'}`}>
         <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-65 flex h-full justify-between items-center">
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex justify-between items-center flex-1 mr-8">
-            {navLinks.map((link) => (
-              <div
-                key={link.label}
-                className="relative"
-                onMouseEnter={() => link.hasDropdown && setActiveDropdown(link.label)}
-                onMouseLeave={() => link.hasDropdown && setActiveDropdown(null)}
-              >
-                {link.hasDropdown ? (
-                  <>
-                    <button className="hover:text-primary transition-colors duration-200 px-3 py-2 text-sm xl:text-base font-medium flex items-center gap-1">
-                      {link.label}
-                      <IoChevronDown 
-                        className={`transition-transform duration-300 ${
-                          activeDropdown === link.label ? 'rotate-180' : ''
-                        }`} 
-                      />
-                    </button>
+          <div className="hidden lg:flex justify-between items-center flex-1 ">
+            {/* Logo */}
+            <div className='shrink-0 '>
+              <img
+                src={LOGO}
+                alt="Logo"
+                className='h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20'
+              />
+            </div>
+            <div className='flex items-center'>
+              {navLinks.map((link) => (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => link.hasDropdown && setActiveDropdown(link.label)}
+                  onMouseLeave={() => link.hasDropdown && setActiveDropdown(null)}
+                >
+                  {link.hasDropdown ? (
+                    <>
+                      <button className="hover:text-primary transition-colors duration-200 px-3 py-2 text-sm xl:text-base font-medium flex items-center gap-1">
+                        {link.label}
+                        <IoChevronDown
+                          className={`transition-transform duration-300 ${activeDropdown === link.label ? 'rotate-180' : ''
+                            }`}
+                        />
+                      </button>
 
-                    {/* Dropdown Menu */}
-                    {activeDropdown === link.label && (
-                      <div className="absolute top-full left-0  bg-White rounded-lg shadow-xl border border-gray-100 py-2 animate-fadeIn min-w-[250px]">
-                        {link.subLinks?.map((subLink) => (
-                          <Link
-                            key={subLink.label}
-                            to={subLink.to}
-                            className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200"
-                          >
-                            {subLink.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    to={link.to}
-                    className="hover:text-primary transition-colors duration-200 px-3 py-2 text-sm xl:text-base font-medium"
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </div>
-            ))}
+                      {/* Dropdown Menu */}
+                      {activeDropdown === link.label && (
+                        <div className="absolute top-full left-0  bg-White rounded-lg shadow-xl border border-gray-100 py-2 animate-fadeIn min-w-[250px]">
+                          {link.subLinks?.map((subLink) => (
+                            <Link
+                              key={subLink.label}
+                              to={subLink.to}
+                              // preventScrollReset={false}
+                              className="block px-4 py-3 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200"
+                            >
+                              {subLink.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      to={link.to}
+                      // preventScrollReset
+                      className="hover:text-primary transition-colors duration-200 px-3 py-2 text-sm xl:text-base font-medium"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex gap-3 items-center">
-            <Link to='signup'>
-            <ButtonFill content='Signup' className='px-6' />
-            </Link>
-            <Link to='login'>
-            <ButtonFill content='Login' className='px-6' />
-            </Link>
+            {
+              user.id ?
+                <ButtonFill content='Logout' className='px-6' onClick={logOut} />
+                :
+                <Link to='login'>
+                  <ButtonFill content='Login' className='px-6'  />
+                </Link>
+            }
           </div>
 
           {/* Mobile/Tablet Menu Button */}
@@ -151,9 +186,8 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-White shadow-2xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 h-full w-80 bg-White shadow-2xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Sidebar Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-200">
@@ -179,10 +213,9 @@ const Navbar = () => {
                     className="w-full flex items-center justify-between hover:text-primary hover:bg-gray-50 transition-all duration-200 px-4 py-3 rounded-lg text-base font-medium"
                   >
                     <span>{link.label}</span>
-                    <IoChevronDown 
-                      className={`transition-transform duration-300 ${
-                        activeMobileDropdown === link.label ? 'rotate-180' : ''
-                      }`} 
+                    <IoChevronDown
+                      className={`transition-transform duration-300 ${activeMobileDropdown === link.label ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
 
@@ -217,8 +250,7 @@ const Navbar = () => {
 
         {/* Sidebar Buttons */}
         <div className=" bottom-0 left-0 right-0 p-6 border-t border-gray-200 space-y-3 bg-White">
-          <ButtonFill content='Signup' className='w-full' onClick={closeSidebar} />
-          <ButtonFill content='Login' className='w-full' onClick={closeSidebar} />
+          <ButtonFill content='Login' className='w-full' onClick={() => navigate('/login')} />
         </div>
       </div>
     </>
